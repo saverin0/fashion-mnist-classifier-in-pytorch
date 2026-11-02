@@ -101,8 +101,19 @@ def count_parameters(model):
             total += p.numel()
     return total
 
-# Step 5 - train_one_epoch (not yet solved)
-# TODO: implement
+# Step 5 - train_one_epoch
+def train_one_epoch(model, loader, loss_fn, optimizer):
+    # TODO: model.train(); per batch: zero_grad, forward, loss, backward, step; return mean batch loss.
+    model.train()
+    total = 0.0
+    for xb, yb in loader:
+        optimizer.zero_grad() # 1. clear old corrections
+        logits = model(xb) # throw
+        loss = loss_fn(logits, yb) #how far off we are
+        loss.backward() #4 work out the adjusments
+        optimizer.step() #adjust
+        total += loss.item()
+    return total / len(loader)
 
 # Step 6 - evaluate (not yet solved)
 # TODO: implement
