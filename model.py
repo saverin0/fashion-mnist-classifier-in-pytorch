@@ -115,8 +115,18 @@ def train_one_epoch(model, loader, loss_fn, optimizer):
         total += loss.item()
     return total / len(loader)
 
-# Step 6 - evaluate (not yet solved)
-# TODO: implement
+# Step 6 - evaluate
+def evaluate(model, loader, loss_fn):
+    # TODO: eval mode + no_grad; return (mean loss over examples, accuracy) as floats.
+    model.eval()
+    total_loss, correct, n = 0.0, 0, 0
+    with torch.no_grad():
+        for xb, yb in loader:
+            logits = model(xb)
+            correct += (logits.argmax(1) == yb).sum().item()
+            total_loss += loss_fn(logits, yb).item() * len(yb)
+            n += len(yb)
+    return total_loss / n, correct / n
 
 # Step 7 - fit (not yet solved)
 # TODO: implement
