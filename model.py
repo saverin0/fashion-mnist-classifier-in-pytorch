@@ -128,8 +128,31 @@ def evaluate(model, loader, loss_fn):
             n += len(yb)
     return total_loss / n, correct / n
 
-# Step 7 - fit (not yet solved)
-# TODO: implement
+# Step 7 - fit
+def fit(model, loaders, epochs=5, lr=0.05, seed=42):
+    # TODO: seeded SGD training with a validation pass per epoch; restore the best-val-accuracy weights; return history.
+    torch.manual_seed(seed)
+    loss_fn = nn.CrossEntropyLoss()
+
+    optimizer = torch.optim.SGD(model.parameters(),lr =lr)
+    history = {"train_loss": [], "val_loss": [], "val_acc": []}
+    best_acc = -1
+    best_epoch = 0
+    best_state = None
+    for i in range(epochs):
+      train_loss = train_one_epoch (model, loaders["train"], loss_fn, optimizer)
+      val_loss, val_acc = evaluate(model, loaders["val"], loss_fn)
+      history["train_loss"].append(train_loss)
+      history["val_loss"].append(val_loss)
+      history["val_acc"].append(val_acc)
+      #print(i, train_loss, val_loss, val_acc)
+      if val_acc > best_acc:
+            best_acc = val_acc
+            best_epoch = i
+            best_state = copy.deepcopy(model.state_dict(best_state))
+            #print("  saved epoch", i)
+            history["best_epoch"] = best_epoch
+    return history
 
 # Step 8 - lr_range_test (not yet solved)
 # TODO: implement

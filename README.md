@@ -1,6 +1,6 @@
 # Fashion-MNIST Classifier in PyTorch
 
-Chapter 10 of Hands-On Machine Learning as a PyTorch practitioner writes it: download the real Fashion-MNIST files, wrap them in a Dataset and DataLoaders, build an MLP as an nn.Module, write training and evaluation loops with best-checkpoint restore, run a learning-rate range test, then save the weights and serve predictions as class names.
+Neural networks from Hands-On Machine Learning as a PyTorch practitioner writes it: download the real Fashion-MNIST files, wrap them in a Dataset and DataLoaders, build an MLP as an nn.Module, write training and evaluation loops with best-checkpoint restore, run a learning-rate range test, then save the weights and serve predictions as class names.
 
 ## How to run
 
@@ -16,7 +16,7 @@ python scaffold.py
 - [x] **4.** MLP
 - [x] **5.** train_one_epoch
 - [x] **6.** evaluate
-- [ ] **7.** fit
+- [x] **7.** fit
 - [ ] **8.** lr_range_test
 - [ ] **9.** random_search
 - [ ] **10.** test_accuracy
