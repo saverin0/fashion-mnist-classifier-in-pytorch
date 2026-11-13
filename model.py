@@ -201,7 +201,6 @@ def random_search(loaders, n_trials=4, epochs=2, seed=42):
 
 # Step 10 - test_accuracy
 def test_accuracy(model, loaders):
-    # TODO: accuracy on loaders['test'] via evaluate.
     loss, acc = evaluate(model, loaders["test"], nn.CrossEntropyLoss())
     return acc
 
