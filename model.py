@@ -177,8 +177,27 @@ def lr_range_test(make_model, loader, lrs, n_batches=20, seed=42):
       results[lr] = float(sum(losses) / len(losses))
     return results
 
-# Step 9 - random_search (not yet solved)
-# TODO: implement
+# Step 9 - random_search
+import torch
+def random_search(loaders, n_trials=4, epochs=2, seed=42):
+    rng = np.random.default_rng(seed)
+    trials = []
+    best_acc = -1
+    best = None
+    for t in range(n_trials):
+        hidden1 = rng.choice([100, 200, 300])
+        hidden2 = rng.choice([50, 100])
+        lr = rng.choice([0.01, 0.05, 0.1])
+        torch.manual_seed(seed)
+        model = MLP(hidden1, hidden2)
+        history = fit(model, loaders, epochs=epochs, lr=lr, seed=seed)   # check: names, no numbers
+        val_acc = max(history["val_acc"])
+        trial = {"hidden1": hidden1, "hidden2": hidden2, "lr": lr , "val_acc": val_acc }   # NEW
+        trials.append(trial)                                                         # NEW
+        if val_acc  > best_acc:
+          best_acc = val_acc
+          best = trial
+    return {"trials": trials, "best": best}
 
 # Step 10 - test_accuracy (not yet solved)
 # TODO: implement
